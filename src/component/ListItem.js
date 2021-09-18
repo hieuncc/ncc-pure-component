@@ -1,6 +1,6 @@
 import { useState } from "react"
 import InputString from "./InputString"
-import ItemPureComponent from "./ItemPureComponent"
+import ListPureComponent from "./ListPureComponent"
 const ListItem = () => {
     const [ listTask, setListTask ] = useState([])
     const [ theme, setTheme ] = useState(0)
@@ -8,21 +8,26 @@ const ListItem = () => {
     function handleChangeTheme() {
         setTheme(theme+1)
     }
-    function handleSubmitTask(e) {
-        console.log(e.target.value)
-        const newState = [...listTask, {name: e.target.value}]
+    function handleSubmitTask(value) {
+        const newState= [...listTask, {name: value, id: listTask.length +1}]
         setListTask(newState)
+    }
+    const handleDelete = (index) => {
+        const newState= 
+            [
+                ...listTask.slice(0,index),
+                ...listTask.slice(index +1)
+            ] 
+            setListTask(newState)
     }
     return (
         <>
             <button onClick={() => handleChangeTheme()}>Change Theme</button>
             <InputString handleSubmitTask={handleSubmitTask}/>
-            {
-                listTask.map((item,index) => 
-                    // component will not re-render when props is not change
-                    <ItemPureComponent key={index} name={item.name}/>
-                )
-            }
+            <ListPureComponent 
+                listTask={listTask} 
+                handleDeleteTask={handleDelete}
+            />
         </>
     )
 }

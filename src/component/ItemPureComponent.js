@@ -3,13 +3,15 @@ class ItemPureComponent extends React.PureComponent {
     constructor(props) {
         super(props)
         this.state = {
-            name: props.name
+            item: props.item,
         }
     }
     render() {
-        console.log("InputString/re-render",this.state.name)
+        console.log("Item Pure",this.state.item)
         return (
-            <p>{this.state.name}</p>
+            <p>
+                {this.state.item.name}
+            </p>
         )
     }
 }

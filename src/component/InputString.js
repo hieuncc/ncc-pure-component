@@ -6,11 +6,14 @@ const InputString = (props) => {
         props.handleSubmitTask(state)
         setState("")
     }
-    console.log("InputString/re-render")
+    function handleChangeState(e) {
+        const value= e.target.value
+        setState(value)
+    }
     return (
         <div>
-            <input type="text" onChange={e => setState(e)} />
-            <button onClick={() => handleAction(state)}>
+            <input type="text" onChange={e => handleChangeState(e)} value={state} />
+            <button onClick={() => handleAction()}>
                 add
             </button>
         </div>
