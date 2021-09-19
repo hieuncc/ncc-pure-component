@@ -1,34 +1,49 @@
-import { useState } from "react"
+import React from "react"
 import InputString from "./InputString"
-import ListPureComponent from "./ListPureComponent"
-const ListItem = () => {
-    const [ listTask, setListTask ] = useState([])
-    const [ theme, setTheme ] = useState(0)
-    // when this action run will re-render whole component
-    function handleChangeTheme() {
-        setTheme(theme+1)
-    }
-    function handleSubmitTask(value) {
-        const newState= [...listTask, {name: value, id: listTask.length +1}]
-        setListTask(newState)
-    }
-    const handleDelete = (index) => {
-        const newState= 
-            [
-                ...listTask.slice(0,index),
-                ...listTask.slice(index +1)
-            ] 
-            setListTask(newState)
-    }
-    return (
-        <>
-            <button onClick={() => handleChangeTheme()}>Change Theme</button>
-            <InputString handleSubmitTask={handleSubmitTask}/>
-            <ListPureComponent 
-                listTask={listTask} 
-                handleDeleteTask={handleDelete}
-            />
-        </>
+import ItemPureComponent from "./ItemPureComponent"
+class ListItem extends React.Component {
+  state = {
+    counter: 0,
+    listTask: []
+  }
+  handleChangeTheme() {
+    this.setState(prevState => ({
+      ...prevState, counter: prevState.counter +1
+    }))
+  }
+  handleSubmitTask(value) {
+    this.setState(
+      prevState => ({
+        ...prevState, 
+        listTask: [...prevState.listTask, { name: value, id: prevState.listTask.length + 1 }]
+      })
     )
+  }
+  handleDelete = () => {
+    console.log(1)
+    // const newState = [
+    //   ...listTask.slice(0, 1),
+    //   ...listTask.slice(2),
+    // ]
+    // setListTask(newState) 
+  }
+  render () {
+    return (
+      <>  
+        <p>{this.state.counter}</p>
+        <button onClick={() => this.handleChangeTheme()}>Change Theme</button>
+        <InputString handleSubmitTask={(value) =>this.handleSubmitTask(value)} />
+        {
+          this.state.listTask.map((item,index) => 
+            <ItemPureComponent 
+                key={item.id}
+                item={item} 
+                onClick={this.handleDelete}
+            />
+          )
+        }
+      </>
+    )
+  }
 }
 export default ListItem

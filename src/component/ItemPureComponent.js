@@ -1,16 +1,12 @@
 import React from "react"
 class ItemPureComponent extends React.PureComponent {
-    constructor(props) {
-        super(props)
-        this.state = {
-            item: props.item,
-        }
-    }
     render() {
-        console.log("Item Pure",this.state.item)
+        console.log("Item Pure",this.props.item)
         return (
-            <p>
-                {this.state.item.name}
+            <p 
+                onClick={this.props.onClick}
+            >
+                {this.props.item.name}
             </p>
         )
     }

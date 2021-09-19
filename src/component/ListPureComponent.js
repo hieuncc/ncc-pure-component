@@ -1,17 +1,13 @@
 import React from "react"
 import ItemPureComponent from "./ItemPureComponent"
-import WarpItem from "./WarpItem"
 const ListPureComponent = (props) => {
     return (
         props.listTask.map((item,index) => 
-            <WarpItem
+            <ItemPureComponent 
                 key={item.id}
-                function= {() =>props.handleDeleteTask(index)}
-            > 
-                <ItemPureComponent 
-                    item={item} 
-                />
-            </WarpItem>
+                item={item} 
+                action={props.handleDeleteTask}
+            />
         )
     )
 }

@@ -2,7 +2,7 @@ import { useState } from "react"
 
 const InputString = (props) => {
     const [ state, setState ] = useState("")
-    function handleAction() {
+    const handleAction = () => {
         props.handleSubmitTask(state)
         setState("")
     }
@@ -12,8 +12,8 @@ const InputString = (props) => {
     }
     return (
         <div>
-            <input type="text" onChange={e => handleChangeState(e)} value={state} />
-            <button onClick={() => handleAction()}>
+            <input type="text" onChange={handleChangeState} value={state} />
+            <button onClick={handleAction}>
                 add
             </button>
         </div>
